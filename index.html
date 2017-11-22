@@ -316,7 +316,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zixianc.github.io/2017/11/22/test/">
+    <link itemprop="mainEntityOfPage" href="https://zixianc.github.io/2017/11/22/docker-install/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zixian">
@@ -335,7 +335,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/22/test/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2017/11/22/docker-install/" itemprop="url">docker-install</a></h1>
         
 
         <div class="post-meta">
@@ -347,7 +347,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-22T20:27:48+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-22T20:39:10+08:00">
                 2017-11-22
               </time>
             
@@ -387,8 +387,13 @@
       
         
           
-            <hr>
-<h2 id="title-test"><a href="#title-test" class="headerlink" title="title:test"></a>title:test</h2><h2 id="Just-Test"><a href="#Just-Test" class="headerlink" title="Just Test"></a>Just Test</h2><h3 id="just-test-aaaa"><a href="#just-test-aaaa" class="headerlink" title="just test aaaa"></a>just test aaaa</h3>
+            <h2 id="1、安装docker-aliyun镜像"><a href="#1、安装docker-aliyun镜像" class="headerlink" title="1、安装docker(aliyun镜像)"></a>1、安装docker(aliyun镜像)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</div><div class="line">curl -fsSL https://get.docker.com/ | sh</div></pre></td></tr></table></figure>
+<h2 id="2、配置加速器"><a href="#2、配置加速器" class="headerlink" title="2、配置加速器"></a>2、配置加速器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mkdir -p /etc/docker</div><div class="line">tee /etc/docker/daemon.json &lt;&lt;-&apos;EOF&apos;</div><div class="line">&#123;</div><div class="line">  &quot;registry-mirrors&quot;: [&quot;aliyun加速地址&quot;]</div><div class="line">&#125;</div><div class="line">EOF</div></pre></td></tr></table></figure>
+<h2 id="3、修改"><a href="#3、修改" class="headerlink" title="3、修改"></a>3、修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /usr/lib/systemd/system/docker.service</div></pre></td></tr></table></figure>
+<p>找到ExecStart属性，在dockerd后面添加–insecure-registry 服务器IP:Docker仓库端口 ，最终为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/dockerd --insecure-registry 0.0.0.0/0</div></pre></td></tr></table></figure></p>
+<h2 id="4、设置开机并重启docker"><a href="#4、设置开机并重启docker" class="headerlink" title="4、设置开机并重启docker"></a>4、设置开机并重启docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">systemctl enable docker</div><div class="line">systemctl daemon-reload</div><div class="line">systemctl restart docker</div><div class="line">docker login --username=admin --passwrod=seentao registry-host:port</div></pre></td></tr></table></figure>
+<h2 id="5、安装docker-bash"><a href="#5、安装docker-bash" class="headerlink" title="5、安装docker-bash"></a>5、安装docker-bash</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum install wget -y</div><div class="line">wget -P ~ https://github.com/yeasy/docker_practice/raw/master/_local/.bashrc_docker</div><div class="line">echo &quot;[ -f ~/.bashrc_docker ] &amp;&amp; . ~/.bashrc_docker&quot; &gt;&gt; ~/.bashrc</div><div class="line">source ~/.bashrc</div></pre></td></tr></table></figure>
+
           
         
       
@@ -609,6 +614,15 @@
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
