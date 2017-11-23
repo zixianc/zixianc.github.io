@@ -105,18 +105,18 @@
 
 
 
-<meta name="description" content="1、安装docker(aliyun镜像)12curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -curl -fsSL https://get.docker.com/ | sh 2、配置加速器123456mkdir -p /etc/dockertee /etc/doc">
+<meta name="description" content="安装docker(aliyun镜像)12curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -curl -fsSL https://get.docker.com/ | sh 配置加速器123456mkdir -p /etc/dockertee /etc/docker/">
 <meta name="keywords" content="docker,centos7">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker-install">
 <meta property="og:url" content="https://zixianc.github.io/2017/11/22/docker-install/index.html">
 <meta property="og:site_name" content="Zixan`s Blog">
-<meta property="og:description" content="1、安装docker(aliyun镜像)12curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -curl -fsSL https://get.docker.com/ | sh 2、配置加速器123456mkdir -p /etc/dockertee /etc/doc">
+<meta property="og:description" content="安装docker(aliyun镜像)12curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -curl -fsSL https://get.docker.com/ | sh 配置加速器123456mkdir -p /etc/dockertee /etc/docker/">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-23T01:27:14.793Z">
+<meta property="og:updated_time" content="2017-11-23T01:46:13.290Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker-install">
-<meta name="twitter:description" content="1、安装docker(aliyun镜像)12curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -curl -fsSL https://get.docker.com/ | sh 2、配置加速器123456mkdir -p /etc/dockertee /etc/doc">
+<meta name="twitter:description" content="安装docker(aliyun镜像)12curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -curl -fsSL https://get.docker.com/ | sh 配置加速器123456mkdir -p /etc/dockertee /etc/docker/">
 
 
 
@@ -406,12 +406,12 @@
       
 
       
-        <h2 id="1、安装docker-aliyun镜像"><a href="#1、安装docker-aliyun镜像" class="headerlink" title="1、安装docker(aliyun镜像)"></a>1、安装docker(aliyun镜像)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</div><div class="line">curl -fsSL https://get.docker.com/ | sh</div></pre></td></tr></table></figure>
-<h2 id="2、配置加速器"><a href="#2、配置加速器" class="headerlink" title="2、配置加速器"></a>2、配置加速器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mkdir -p /etc/docker</div><div class="line">tee /etc/docker/daemon.json &lt;&lt;-&apos;EOF&apos;</div><div class="line">&#123;</div><div class="line">  &quot;registry-mirrors&quot;: [&quot;aliyun加速地址&quot;]</div><div class="line">&#125;</div><div class="line">EOF</div></pre></td></tr></table></figure>
-<h2 id="3、修改允许非安全的仓库"><a href="#3、修改允许非安全的仓库" class="headerlink" title="3、修改允许非安全的仓库"></a>3、修改允许非安全的仓库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /usr/lib/systemd/system/docker.service</div></pre></td></tr></table></figure>
+        <h2 id="安装docker-aliyun镜像"><a href="#安装docker-aliyun镜像" class="headerlink" title="安装docker(aliyun镜像)"></a>安装docker(aliyun镜像)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</div><div class="line">curl -fsSL https://get.docker.com/ | sh</div></pre></td></tr></table></figure>
+<h2 id="配置加速器"><a href="#配置加速器" class="headerlink" title="配置加速器"></a>配置加速器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mkdir -p /etc/docker</div><div class="line">tee /etc/docker/daemon.json &lt;&lt;-&apos;EOF&apos;</div><div class="line">&#123;</div><div class="line">  &quot;registry-mirrors&quot;: [&quot;aliyun加速地址&quot;]</div><div class="line">&#125;</div><div class="line">EOF</div></pre></td></tr></table></figure>
+<h2 id="修改允许非安全的仓库"><a href="#修改允许非安全的仓库" class="headerlink" title="修改允许非安全的仓库"></a>修改允许非安全的仓库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /usr/lib/systemd/system/docker.service</div></pre></td></tr></table></figure>
 <p>找到ExecStart属性，在dockerd后面添加–insecure-registry 服务器IP:Docker仓库端口 ，最终为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/dockerd --insecure-registry 0.0.0.0/0</div></pre></td></tr></table></figure></p>
-<h2 id="4、设置开机并重启docker"><a href="#4、设置开机并重启docker" class="headerlink" title="4、设置开机并重启docker"></a>4、设置开机并重启docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">systemctl enable docker</div><div class="line">systemctl daemon-reload</div><div class="line">systemctl restart docker</div><div class="line">docker login --username=admin --passwrod=seentao registry-host:port</div></pre></td></tr></table></figure>
-<h2 id="5、安装docker-bash"><a href="#5、安装docker-bash" class="headerlink" title="5、安装docker-bash"></a>5、安装docker-bash</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum install wget -y</div><div class="line">wget -P ~ https://github.com/yeasy/docker_practice/raw/master/_local/.bashrc_docker</div><div class="line">echo &quot;[ -f ~/.bashrc_docker ] &amp;&amp; . ~/.bashrc_docker&quot; &gt;&gt; ~/.bashrc</div><div class="line">source ~/.bashrc</div></pre></td></tr></table></figure>
+<h2 id="设置开机并重启docker"><a href="#设置开机并重启docker" class="headerlink" title="设置开机并重启docker"></a>设置开机并重启docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">systemctl enable docker</div><div class="line">systemctl daemon-reload</div><div class="line">systemctl restart docker</div><div class="line">docker login --username=admin --passwrod=seentao registry-host:port</div></pre></td></tr></table></figure>
+<h2 id="安装docker-bash"><a href="#安装docker-bash" class="headerlink" title="安装docker-bash"></a>安装docker-bash</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum install wget -y</div><div class="line">wget -P ~ https://github.com/yeasy/docker_practice/raw/master/_local/.bashrc_docker</div><div class="line">echo &quot;[ -f ~/.bashrc_docker ] &amp;&amp; . ~/.bashrc_docker&quot; &gt;&gt; ~/.bashrc</div><div class="line">source ~/.bashrc</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -602,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、安装docker-aliyun镜像"><span class="nav-number">1.</span> <span class="nav-text">1、安装docker(aliyun镜像)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、配置加速器"><span class="nav-number">2.</span> <span class="nav-text">2、配置加速器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、修改允许非安全的仓库"><span class="nav-number">3.</span> <span class="nav-text">3、修改允许非安全的仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、设置开机并重启docker"><span class="nav-number">4.</span> <span class="nav-text">4、设置开机并重启docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、安装docker-bash"><span class="nav-number">5.</span> <span class="nav-text">5、安装docker-bash</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装docker-aliyun镜像"><span class="nav-number">1.</span> <span class="nav-text">安装docker(aliyun镜像)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置加速器"><span class="nav-number">2.</span> <span class="nav-text">配置加速器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改允许非安全的仓库"><span class="nav-number">3.</span> <span class="nav-text">修改允许非安全的仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置开机并重启docker"><span class="nav-number">4.</span> <span class="nav-text">设置开机并重启docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装docker-bash"><span class="nav-number">5.</span> <span class="nav-text">安装docker-bash</span></a></li></ol></div>
             
 
           </div>
