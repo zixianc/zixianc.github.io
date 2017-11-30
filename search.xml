@@ -1,32 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
-  <entry>
-    <title><![CDATA[docker-java-thread&heap-dump]]></title>
-    <url>%2F2017%2F11%2F23%2Fdocker-java-thread-heap-dump%2F</url>
-    <content type="text"><![CDATA[进入docker容器内1docker exec -it CONTAINER_NAME bash 查看java进程1jps 转存进程Thread信息1jstack PID &gt; thread.tdump 转存进程Heap信息1jmap -dump:live,format=b,file=heapDump.hprof PID 从容器中拷贝出文件12sudo docker cp CONTAINER_NAME:threadDump.tdump .sudo docker cp CONTAINER_NAME:heapDump.hprof .]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[docker-install]]></title>
-    <url>%2F2017%2F11%2F22%2Fdocker-install%2F</url>
-    <content type="text"><![CDATA[安装docker12(aliyun镜像) curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -(daocloud镜像) curl -fsSL https://get.docker.com/ | sh 配置加速器123456mkdir -p /etc/dockertee /etc/docker/daemon.json &lt;&lt;-&apos;EOF&apos;&#123; &quot;registry-mirrors&quot;: [&quot;aliyun加速地址&quot;]&#125;EOF 修改允许非安全的仓库1vi /usr/lib/systemd/system/docker.service 找到ExecStart属性，在dockerd后面添加–insecure-registry 服务器IP:Docker仓库端口 ，最终为：1ExecStart=/usr/bin/dockerd --insecure-registry 0.0.0.0/0 设置开机并重启docker1234systemctl enable dockersystemctl daemon-reloadsystemctl restart dockerdocker login --username=admin --passwrod=seentao registry-host:port 安装docker-bash1234yum install wget -ywget -P ~ https://github.com/yeasy/docker_practice/raw/master/_local/.bashrc_dockerecho &quot;[ -f ~/.bashrc_docker ] &amp;&amp; . ~/.bashrc_docker&quot; &gt;&gt; ~/.bashrcsource ~/.bashrc]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-        <tag>centos7</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2017%2F10%2F14%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
-  </entry>
+  
+  
+    
+    <entry>
+      <title><![CDATA[docker-java-thread&heap-dump]]></title>
+      <url>https://zixianc.github.io/2017/11/23/docker-java-thread-heap-dump/</url>
+      <content type="html"><![CDATA[<h2 id="进入docker容器内"><a href="#进入docker容器内" class="headerlink" title="进入docker容器内"></a>进入docker容器内</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker exec -it CONTAINER_NAME bash</div></pre></td></tr></table></figure>
+<h2 id="查看java进程"><a href="#查看java进程" class="headerlink" title="查看java进程"></a>查看java进程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jps</div></pre></td></tr></table></figure>
+<h2 id="转存进程Thread信息"><a href="#转存进程Thread信息" class="headerlink" title="转存进程Thread信息"></a>转存进程Thread信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jstack PID &gt; thread.tdump</div></pre></td></tr></table></figure>
+<h2 id="转存进程Heap信息"><a href="#转存进程Heap信息" class="headerlink" title="转存进程Heap信息"></a>转存进程Heap信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jmap -dump:live,format=b,file=heapDump.hprof PID</div></pre></td></tr></table></figure>
+<h2 id="从容器中拷贝出文件"><a href="#从容器中拷贝出文件" class="headerlink" title="从容器中拷贝出文件"></a>从容器中拷贝出文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo docker cp CONTAINER_NAME:threadDump.tdump .</div><div class="line">sudo docker cp CONTAINER_NAME:heapDump.hprof .</div></pre></td></tr></table></figure>]]></content>
+      
+        <categories>
+            
+            <category> Docker </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> docker </tag>
+            
+            <tag> java </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[docker-install]]></title>
+      <url>https://zixianc.github.io/2017/11/22/docker-install/</url>
+      <content type="html"><![CDATA[<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">(aliyun镜像) curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</div><div class="line">(daocloud镜像) curl -fsSL https://get.docker.com/ | sh</div></pre></td></tr></table></figure>
+<h2 id="配置加速器"><a href="#配置加速器" class="headerlink" title="配置加速器"></a>配置加速器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mkdir -p /etc/docker</div><div class="line">tee /etc/docker/daemon.json &lt;&lt;-&apos;EOF&apos;</div><div class="line">&#123;</div><div class="line">  &quot;registry-mirrors&quot;: [&quot;aliyun加速地址&quot;]</div><div class="line">&#125;</div><div class="line">EOF</div></pre></td></tr></table></figure>
+<h2 id="修改允许非安全的仓库"><a href="#修改允许非安全的仓库" class="headerlink" title="修改允许非安全的仓库"></a>修改允许非安全的仓库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /usr/lib/systemd/system/docker.service</div></pre></td></tr></table></figure>
+<p>找到ExecStart属性，在dockerd后面添加–insecure-registry 服务器IP:Docker仓库端口 ，最终为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/dockerd --insecure-registry 0.0.0.0/0</div></pre></td></tr></table></figure></p>
+<h2 id="设置开机并重启docker"><a href="#设置开机并重启docker" class="headerlink" title="设置开机并重启docker"></a>设置开机并重启docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">systemctl enable docker</div><div class="line">systemctl daemon-reload</div><div class="line">systemctl restart docker</div><div class="line">docker login --username=admin --passwrod=seentao registry-host:port</div></pre></td></tr></table></figure>
+<h2 id="安装docker-bash"><a href="#安装docker-bash" class="headerlink" title="安装docker-bash"></a>安装docker-bash</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum install wget -y</div><div class="line">wget -P ~ https://github.com/yeasy/docker_practice/raw/master/_local/.bashrc_docker</div><div class="line">echo &quot;[ -f ~/.bashrc_docker ] &amp;&amp; . ~/.bashrc_docker&quot; &gt;&gt; ~/.bashrc</div><div class="line">source ~/.bashrc</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Docker </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> docker </tag>
+            
+            <tag> centos7 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>https://zixianc.github.io/2017/10/14/hello-world/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+  
+  
 </search>
