@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[获取docker容器内java进程的堆栈信息]]></title>
     <url>%2F2017%2F11%2F23%2Fdocker-java-thread-heap-dump%2F</url>
-    <content type="text"><![CDATA[进入docker容器内1docker exec -it CONTAINER_NAME bash 查看java进程1jps 转存进程Thread信息1jstack PID &gt; thread.tdump 转存进程Heap信息1jmap -dump:live,format=b,file=heapDump.hprof PID 从容器中拷贝出文件12sudo docker cp CONTAINER_NAME:threadDump.tdump .sudo docker cp CONTAINER_NAME:heapDump.hprof .]]></content>
+    <content type="text"><![CDATA[进入docker容器内1docker exec -it CONTAINER_NAME bash 查看java进程1jps 转存进程Thread信息1jstack PID &gt; thread.tdump 转存进程Heap信息1jmap -dump:live,format=b,file=heapDump.hprof PID 从容器中拷贝出文件12sudo docker cp CONTAINER_NAME:threadDump.tdump .sudo docker cp CONTAINER_NAME:heapDump.hprof . 使用MAT进行内存分析MAT下载地址]]></content>
       <categories>
         <category>Docker</category>
       </categories>
