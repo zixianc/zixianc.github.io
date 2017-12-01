@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zixianc.github.io/about/index.html</loc>
+    
+    <lastmod>2017-12-01T13:35:42.138Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://zixianc.github.io/2017/11/23/docker-java-thread-heap-dump/</loc>
     
     <lastmod>2017-12-01T12:43:07.283Z</lastmod>

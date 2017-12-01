@@ -1,66 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
-  
-  
-    
-    <entry>
-      <title><![CDATA[获取docker容器内java进程的堆栈信息]]></title>
-      <url>https://zixianc.github.io/2017/11/23/docker-java-thread-heap-dump/</url>
-      <content type="html"><![CDATA[<h2 id="进入docker容器内"><a href="#进入docker容器内" class="headerlink" title="进入docker容器内"></a>进入docker容器内</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker exec -it CONTAINER_NAME bash</div></pre></td></tr></table></figure>
-<h2 id="查看java进程"><a href="#查看java进程" class="headerlink" title="查看java进程"></a>查看java进程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jps</div></pre></td></tr></table></figure>
-<h2 id="转存进程Thread信息"><a href="#转存进程Thread信息" class="headerlink" title="转存进程Thread信息"></a>转存进程Thread信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jstack PID &gt; thread.tdump</div></pre></td></tr></table></figure>
-<h2 id="转存进程Heap信息"><a href="#转存进程Heap信息" class="headerlink" title="转存进程Heap信息"></a>转存进程Heap信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jmap -dump:live,format=b,file=heapDump.hprof PID</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="从容器中拷贝出文件"><a href="#从容器中拷贝出文件" class="headerlink" title="从容器中拷贝出文件"></a>从容器中拷贝出文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo docker cp CONTAINER_NAME:threadDump.tdump .</div><div class="line">sudo docker cp CONTAINER_NAME:heapDump.hprof .</div></pre></td></tr></table></figure>
-<h2 id="使用MAT进行内存分析"><a href="#使用MAT进行内存分析" class="headerlink" title="使用MAT进行内存分析"></a>使用MAT进行内存分析</h2><p><a href="http://www.eclipse.org/mat/downloads.php" target="_blank" rel="external">MAT下载地址</a></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Docker </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> docker </tag>
-            
-            <tag> java </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[centos7安装docker]]></title>
-      <url>https://zixianc.github.io/2017/11/22/docker-install/</url>
-      <content type="html"><![CDATA[<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">(aliyun镜像) curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</div><div class="line">(daocloud镜像) curl -fsSL https://get.docker.com/ | sh</div></pre></td></tr></table></figure>
-<h2 id="配置加速器"><a href="#配置加速器" class="headerlink" title="配置加速器"></a>配置加速器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mkdir -p /etc/docker</div><div class="line">tee /etc/docker/daemon.json &lt;&lt;-&apos;EOF&apos;</div><div class="line">&#123;</div><div class="line">  &quot;registry-mirrors&quot;: [&quot;aliyun加速地址&quot;]</div><div class="line">&#125;</div><div class="line">EOF</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="修改允许非安全的仓库"><a href="#修改允许非安全的仓库" class="headerlink" title="修改允许非安全的仓库"></a>修改允许非安全的仓库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /usr/lib/systemd/system/docker.service</div></pre></td></tr></table></figure>
-<p>找到ExecStart属性，在dockerd后面添加–insecure-registry 服务器IP:Docker仓库端口 ，最终为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/dockerd --insecure-registry 0.0.0.0/0</div></pre></td></tr></table></figure></p>
-<h2 id="设置开机并重启docker"><a href="#设置开机并重启docker" class="headerlink" title="设置开机并重启docker"></a>设置开机并重启docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">systemctl enable docker</div><div class="line">systemctl daemon-reload</div><div class="line">systemctl restart docker</div><div class="line">docker login --username=admin --passwrod=seentao registry-host:port</div></pre></td></tr></table></figure>
-<h2 id="安装docker-bash"><a href="#安装docker-bash" class="headerlink" title="安装docker-bash"></a>安装docker-bash</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum install wget -y</div><div class="line">wget -P ~ https://github.com/yeasy/docker_practice/raw/master/_local/.bashrc_docker</div><div class="line">echo &quot;[ -f ~/.bashrc_docker ] &amp;&amp; . ~/.bashrc_docker&quot; &gt;&gt; ~/.bashrc</div><div class="line">source ~/.bashrc</div></pre></td></tr></table></figure>
-]]></content>
-      
-        <categories>
-            
-            <category> Docker </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> docker </tag>
-            
-            <tag> centos7 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-  
-  
+  <entry>
+    <title><![CDATA[获取docker容器内java进程的堆栈信息]]></title>
+    <url>%2F2017%2F11%2F23%2Fdocker-java-thread-heap-dump%2F</url>
+    <content type="text"><![CDATA[进入docker容器内1docker exec -it CONTAINER_NAME bash 查看java进程1jps 转存进程Thread信息1jstack PID &gt; thread.tdump 转存进程Heap信息1jmap -dump:live,format=b,file=heapDump.hprof PID 从容器中拷贝出文件12sudo docker cp CONTAINER_NAME:threadDump.tdump .sudo docker cp CONTAINER_NAME:heapDump.hprof . 使用MAT进行内存分析MAT下载地址]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[centos7安装docker]]></title>
+    <url>%2F2017%2F11%2F22%2Fdocker-install%2F</url>
+    <content type="text"><![CDATA[安装docker12(aliyun镜像) curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -(daocloud镜像) curl -fsSL https://get.docker.com/ | sh 配置加速器123456mkdir -p /etc/dockertee /etc/docker/daemon.json &lt;&lt;-&apos;EOF&apos;&#123; &quot;registry-mirrors&quot;: [&quot;aliyun加速地址&quot;]&#125;EOF 修改允许非安全的仓库1vi /usr/lib/systemd/system/docker.service 找到ExecStart属性，在dockerd后面添加–insecure-registry 服务器IP:Docker仓库端口 ，最终为：1ExecStart=/usr/bin/dockerd --insecure-registry 0.0.0.0/0 设置开机并重启docker1234systemctl enable dockersystemctl daemon-reloadsystemctl restart dockerdocker login --username=admin --passwrod=seentao registry-host:port 安装docker-bash1234yum install wget -ywget -P ~ https://github.com/yeasy/docker_practice/raw/master/_local/.bashrc_dockerecho &quot;[ -f ~/.bashrc_docker ] &amp;&amp; . ~/.bashrc_docker&quot; &gt;&gt; ~/.bashrcsource ~/.bashrc]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>centos7</tag>
+      </tags>
+  </entry>
 </search>
