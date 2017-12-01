@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[docker-java-thread&heap-dump]]></title>
+    <title><![CDATA[获取docker容器内java进程的堆栈信息]]></title>
     <url>%2F2017%2F11%2F23%2Fdocker-java-thread-heap-dump%2F</url>
     <content type="text"><![CDATA[进入docker容器内1docker exec -it CONTAINER_NAME bash 查看java进程1jps 转存进程Thread信息1jstack PID &gt; thread.tdump 转存进程Heap信息1jmap -dump:live,format=b,file=heapDump.hprof PID 从容器中拷贝出文件12sudo docker cp CONTAINER_NAME:threadDump.tdump .sudo docker cp CONTAINER_NAME:heapDump.hprof .]]></content>
       <categories>
@@ -13,7 +13,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[docker-install]]></title>
+    <title><![CDATA[centos7安装docker]]></title>
     <url>%2F2017%2F11%2F22%2Fdocker-install%2F</url>
     <content type="text"><![CDATA[安装docker12(aliyun镜像) curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -(daocloud镜像) curl -fsSL https://get.docker.com/ | sh 配置加速器123456mkdir -p /etc/dockertee /etc/docker/daemon.json &lt;&lt;-&apos;EOF&apos;&#123; &quot;registry-mirrors&quot;: [&quot;aliyun加速地址&quot;]&#125;EOF 修改允许非安全的仓库1vi /usr/lib/systemd/system/docker.service 找到ExecStart属性，在dockerd后面添加–insecure-registry 服务器IP:Docker仓库端口 ，最终为：1ExecStart=/usr/bin/dockerd --insecure-registry 0.0.0.0/0 设置开机并重启docker1234systemctl enable dockersystemctl daemon-reloadsystemctl restart dockerdocker login --username=admin --passwrod=seentao registry-host:port 安装docker-bash1234yum install wget -ywget -P ~ https://github.com/yeasy/docker_practice/raw/master/_local/.bashrc_dockerecho &quot;[ -f ~/.bashrc_docker ] &amp;&amp; . ~/.bashrc_docker&quot; &gt;&gt; ~/.bashrcsource ~/.bashrc]]></content>
       <categories>
@@ -25,7 +25,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello World]]></title>
+    <title><![CDATA[hexo入门]]></title>
     <url>%2F2017%2F10%2F14%2Fhello-world%2F</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
