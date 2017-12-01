@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zixianc.github.io/categories/index.html</loc>
+    
+    <lastmod>2017-12-01T13:38:17.429Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zixianc.github.io/tags/index.html</loc>
+    
+    <lastmod>2017-12-01T13:37:55.723Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://zixianc.github.io/about/index.html</loc>
     
     <lastmod>2017-12-01T13:35:42.138Z</lastmod>
@@ -19,20 +33,6 @@
     <loc>https://zixianc.github.io/2017/11/22/docker-install/</loc>
     
     <lastmod>2017-12-01T12:42:26.978Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zixianc.github.io/categories/index.html</loc>
-    
-    <lastmod>2017-10-14T07:37:16.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zixianc.github.io/tags/index.html</loc>
-    
-    <lastmod>2017-10-14T07:14:49.000Z</lastmod>
     
   </url>
   
