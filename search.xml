@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[centos7安装mysql]]></title>
+    <url>%2F2017%2F12%2F04%2Fmysql-install%2F</url>
+    <content type="text"><![CDATA[安装mysql-rpm包直接安装: 1rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm 或者下载到本地后安装： 12wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpmyum localinstall mysql-community-release-el7-5.noarch.rpm 验证是否安装成功： 1yum repolist enabled | grep &quot;mysql.*-community.*&quot; 安装mysql-server12yum install mysql-community-server -yrpm -qi mysql-community-server.x86_64 0:5.6.24-3.el7 相关设置修改字符集1vi /etc/my.cnf 在123### 设置root密码```systemctl start mysqld```启动服务后```mysqladmin -u root password &apos;new-passwd&apos; 开启远程访问12grant all privileges on *.* to &apos;root&apos;@&apos;%&apos; identified by &apos;passwd&apos; with grant option;FLUSH PRIVILEGES; ###安全设置（可选）1mysql_secure_installation;]]></content>
+      <categories>
+        <category>Mysql</category>
+      </categories>
+      <tags>
+        <tag>centos7</tag>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[获取docker容器内java进程的堆栈信息]]></title>
     <url>%2F2017%2F11%2F23%2Fdocker-java-thread-heap-dump%2F</url>
     <content type="text"><![CDATA[进入docker容器内1docker exec -it CONTAINER_NAME bash 查看java进程1jps 转存进程Thread信息1jstack PID &gt; thread.tdump 转存进程Heap信息1jmap -dump:live,format=b,file=heapDump.hprof PID 从容器中拷贝出文件12sudo docker cp CONTAINER_NAME:threadDump.tdump .sudo docker cp CONTAINER_NAME:heapDump.hprof . 使用MAT进行内存分析MAT下载地址]]></content>
