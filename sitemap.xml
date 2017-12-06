@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zixianc.github.io/2017/12/06/springboot-docker-jenkins/</loc>
+    
+    <lastmod>2017-12-06T14:58:58.491Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://zixianc.github.io/2017/12/04/mysql-install/</loc>
     
     <lastmod>2017-12-04T14:19:20.778Z</lastmod>

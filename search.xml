@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[jenkins+docker持续集成构建SpringBoot项目]]></title>
+    <url>%2F2017%2F12%2F06%2Fspringboot-docker-jenkins%2F</url>
+    <content type="text"><![CDATA[SpringBoot项目配置新建一个名为docker-test的SpringBoot项目 在springboot项目pom.xml中添加依赖1234567891011121314151617181920212223242526&lt;!-- docker打包 --&gt;&lt;plugin&gt; &lt;groupId&gt;com.spotify&lt;/groupId&gt; &lt;artifactId&gt;docker-maven-plugin&lt;/artifactId&gt; &lt;version&gt;0.4.13&lt;/version&gt; &lt;configuration&gt; &lt;serverId&gt;docker-hosted&lt;/serverId&gt; &lt;!-- docker仓库地址，用于推送镜像 --&gt; &lt;registryUrl&gt;$&#123;docker.repository&#125;&lt;/registryUrl&gt; &lt;pushImage&gt;true&lt;/pushImage&gt; &lt;!-- Dockerfile路径 --&gt; &lt;dockerDirectory&gt;src/main/docker&lt;/dockerDirectory&gt; &lt;!-- 构建的镜像名称 --&gt; &lt;imageName&gt;$&#123;docker.repository&#125;/$&#123;project.artifactId&#125;&lt;/imageName&gt; &lt;imageTags&gt; &lt;imageTag&gt;latest&lt;/imageTag&gt; &lt;/imageTags&gt; &lt;resources&gt; &lt;resource&gt; &lt;targetPath&gt;/&lt;/targetPath&gt; &lt;directory&gt;$&#123;project.build.directory&#125;&lt;/directory&gt; &lt;include&gt;$&#123;project.build.finalName&#125;.jar&lt;/include&gt; &lt;/resource&gt; &lt;/resources&gt; &lt;/configuration&gt;&lt;/plugin&gt; docker仓库地址可以直接写在pom文件中，但为了多环境配置可以将地址配置在maven-settings.xml 123456789101112&lt;profiles&gt; &lt;profile&gt; &lt;id&gt;nexus&lt;/id&gt; &lt;properties&gt; &lt;docker.repository&gt;10.10.16.169:8083&lt;/docker.repository&gt; &lt;/properties&gt;&lt;/profile&gt;&lt;/profiles&gt;&lt;activeProfiles&gt; &lt;activeProfile&gt;nexus&lt;/activeProfile&gt; &lt;/activeProfiles&gt; 创建Dockerfile123456FROM java:8 # 基础镜像（主程序镜像）VOLUME /tmp # 挂在tmp盘ADD docker-test-0.0.1-SNAPSHOT.jar workdir/app.jarWORKDIR workdir # 指定工作目录ENV JAVA_OPTS=&quot;&quot;ENTRYPOINT [ &quot;sh&quot;, &quot;-c&quot;, &quot;java -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+08 $JAVA_OPTS -jar /workdir/app.jar&quot; ] # 程序入口，支持动态传参 测试手动构建镜像在命令行进入到项目路径执行mvn clean package docker:build来构建镜像，执行mvn clean package docker:build -DpushImage构建并推送镜像docker仓库]]></content>
+      <categories>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>springboot</tag>
+        <tag>jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[centos7安装mysql]]></title>
     <url>%2F2017%2F12%2F04%2Fmysql-install%2F</url>
     <content type="text"><![CDATA[安装mysql-rpm包直接安装: 1rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm 或者下载到本地后安装： 12wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpmyum localinstall mysql-community-release-el7-5.noarch.rpm 验证是否安装成功： 1yum repolist enabled | grep &quot;mysql.*-community.*&quot; 安装mysql-server12yum install mysql-community-server -yrpm -qi mysql-community-server.x86_64 0:5.6.24-3.el7 相关设置修改字符集1vi /etc/my.cnf 在[mysqld]下添加character_set_server = utf8，启动后SHOW VARIABLES LIKE &#39;character%&#39;;查看字符集信息 设置root密码systemctl start mysqld启动服务后mysqladmin -u root password &#39;new-passwd&#39; 开启远程访问12grant all privileges on *.* to &apos;root&apos;@&apos;%&apos; identified by &apos;passwd&apos; with grant option;FLUSH PRIVILEGES; ###安全设置（可选）1mysql_secure_installation;]]></content>
