@@ -1,52 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
-  <entry>
-    <title><![CDATA[jenkins+docker持续集成构建SpringBoot项目]]></title>
-    <url>%2F2017%2F12%2F06%2Fspringboot-docker-jenkins%2F</url>
-    <content type="text"><![CDATA[SpringBoot项目配置新建一个名为docker-test的SpringBoot项目 在springboot项目pom.xml中添加依赖1234567891011121314151617181920212223242526&lt;!-- docker打包 --&gt;&lt;plugin&gt; &lt;groupId&gt;com.spotify&lt;/groupId&gt; &lt;artifactId&gt;docker-maven-plugin&lt;/artifactId&gt; &lt;version&gt;0.4.13&lt;/version&gt; &lt;configuration&gt; &lt;serverId&gt;docker-hosted&lt;/serverId&gt; &lt;!-- docker仓库地址，用于推送镜像 --&gt; &lt;registryUrl&gt;$&#123;docker.repository&#125;&lt;/registryUrl&gt; &lt;pushImage&gt;true&lt;/pushImage&gt; &lt;!-- Dockerfile路径 --&gt; &lt;dockerDirectory&gt;src/main/docker&lt;/dockerDirectory&gt; &lt;!-- 构建的镜像名称 --&gt; &lt;imageName&gt;$&#123;docker.repository&#125;/$&#123;project.artifactId&#125;&lt;/imageName&gt; &lt;imageTags&gt; &lt;imageTag&gt;latest&lt;/imageTag&gt; &lt;/imageTags&gt; &lt;resources&gt; &lt;resource&gt; &lt;targetPath&gt;/&lt;/targetPath&gt; &lt;directory&gt;$&#123;project.build.directory&#125;&lt;/directory&gt; &lt;include&gt;$&#123;project.build.finalName&#125;.jar&lt;/include&gt; &lt;/resource&gt; &lt;/resources&gt; &lt;/configuration&gt;&lt;/plugin&gt; docker仓库地址可以直接写在pom文件中，但为了多环境配置可以将地址配置在maven-settings.xml 123456789101112&lt;profiles&gt; &lt;profile&gt; &lt;id&gt;nexus&lt;/id&gt; &lt;properties&gt; &lt;docker.repository&gt;10.10.16.169:8083&lt;/docker.repository&gt; &lt;/properties&gt;&lt;/profile&gt;&lt;/profiles&gt;&lt;activeProfiles&gt; &lt;activeProfile&gt;nexus&lt;/activeProfile&gt; &lt;/activeProfiles&gt; 创建Dockerfile123456FROM java:8 # 基础镜像（主程序镜像）VOLUME /tmp # 挂在tmp盘ADD docker-test-0.0.1-SNAPSHOT.jar workdir/app.jarWORKDIR workdir # 指定工作目录ENV JAVA_OPTS=&quot;&quot;ENTRYPOINT [ &quot;sh&quot;, &quot;-c&quot;, &quot;java -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+08 $JAVA_OPTS -jar /workdir/app.jar&quot; ] # 程序入口，支持动态传参 测试手动构建镜像在命令行进入到项目路径执行mvn clean package docker:build来构建镜像，执行mvn clean package docker:build -DpushImage构建并推送镜像docker仓库]]></content>
-      <categories>
-        <category>SpringBoot</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-        <tag>springboot</tag>
-        <tag>jenkins</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[centos7安装mysql]]></title>
-    <url>%2F2017%2F12%2F04%2Fmysql-install%2F</url>
-    <content type="text"><![CDATA[安装mysql-rpm包直接安装: 1rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm 或者下载到本地后安装： 12wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpmyum localinstall mysql-community-release-el7-5.noarch.rpm 验证是否安装成功： 1yum repolist enabled | grep &quot;mysql.*-community.*&quot; 安装mysql-server12yum install mysql-community-server -yrpm -qi mysql-community-server.x86_64 0:5.6.24-3.el7 相关设置修改字符集1vi /etc/my.cnf 在[mysqld]下添加character_set_server = utf8，启动后SHOW VARIABLES LIKE &#39;character%&#39;;查看字符集信息 设置root密码systemctl start mysqld启动服务后mysqladmin -u root password &#39;new-passwd&#39; 开启远程访问12grant all privileges on *.* to &apos;root&apos;@&apos;%&apos; identified by &apos;passwd&apos; with grant option;FLUSH PRIVILEGES; ###安全设置（可选）1mysql_secure_installation;]]></content>
-      <categories>
-        <category>Mysql</category>
-      </categories>
-      <tags>
-        <tag>centos7</tag>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[获取docker容器内java进程的堆栈信息]]></title>
-    <url>%2F2017%2F11%2F23%2Fdocker-java-thread-heap-dump%2F</url>
-    <content type="text"><![CDATA[进入docker容器内1docker exec -it CONTAINER_NAME bash 查看java进程1jps 转存进程Thread信息1jstack PID &gt; thread.tdump 转存进程Heap信息1jmap -dump:live,format=b,file=heapDump.hprof PID 从容器中拷贝出文件12sudo docker cp CONTAINER_NAME:threadDump.tdump .sudo docker cp CONTAINER_NAME:heapDump.hprof . 使用MAT进行内存分析MAT下载地址]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[centos7安装docker]]></title>
-    <url>%2F2017%2F11%2F22%2Fdocker-install%2F</url>
-    <content type="text"><![CDATA[安装docker12(aliyun镜像) curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -(daocloud镜像) curl -fsSL https://get.docker.com/ | sh 配置加速器123456mkdir -p /etc/dockertee /etc/docker/daemon.json &lt;&lt;-&apos;EOF&apos;&#123; &quot;registry-mirrors&quot;: [&quot;aliyun加速地址&quot;]&#125;EOF 修改允许非安全的仓库1vi /usr/lib/systemd/system/docker.service 找到ExecStart属性，在dockerd后面添加–insecure-registry 服务器IP:Docker仓库端口 ，最终为：1ExecStart=/usr/bin/dockerd --insecure-registry 0.0.0.0/0 设置开机并重启docker1234systemctl enable dockersystemctl daemon-reloadsystemctl restart dockerdocker login --username=admin --passwrod=seentao registry-host:port 安装docker-bash1234yum install wget -ywget -P ~ https://github.com/yeasy/docker_practice/raw/master/_local/.bashrc_dockerecho &quot;[ -f ~/.bashrc_docker ] &amp;&amp; . ~/.bashrc_docker&quot; &gt;&gt; ~/.bashrcsource ~/.bashrc]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-        <tag>centos7</tag>
-      </tags>
-  </entry>
+  
+  
+    
+    <entry>
+      <title><![CDATA[jenkins+docker持续集成构建SpringBoot项目]]></title>
+      <url>https://zixianc.github.io/2017/12/06/springboot-docker-jenkins/</url>
+      <content type="html"><![CDATA[<h2 id="SpringBoot项目配置"><a href="#SpringBoot项目配置" class="headerlink" title="SpringBoot项目配置"></a>SpringBoot项目配置</h2><p>假设要构建一个用户中心服务，新建一个名为user-center的SpringBoot项目</p>
+<h3 id="在springboot项目pom-xml中添加依赖"><a href="#在springboot项目pom-xml中添加依赖" class="headerlink" title="在springboot项目pom.xml中添加依赖"></a>在springboot项目pom.xml中添加依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;!-- docker打包 --&gt;</div><div class="line">&lt;plugin&gt;</div><div class="line">	&lt;groupId&gt;com.spotify&lt;/groupId&gt;</div><div class="line">	&lt;artifactId&gt;docker-maven-plugin&lt;/artifactId&gt;</div><div class="line">	&lt;version&gt;0.4.13&lt;/version&gt;</div><div class="line">	&lt;configuration&gt;</div><div class="line">		&lt;serverId&gt;docker-hosted&lt;/serverId&gt;</div><div class="line">		&lt;!-- docker仓库地址，用于推送镜像 --&gt;</div><div class="line">		&lt;registryUrl&gt;$&#123;docker.repository&#125;&lt;/registryUrl&gt;</div><div class="line">		&lt;pushImage&gt;true&lt;/pushImage&gt;</div><div class="line">		&lt;!-- Dockerfile路径 --&gt;</div><div class="line">		&lt;dockerDirectory&gt;src/main/docker&lt;/dockerDirectory&gt;</div><div class="line">		&lt;!-- 构建的镜像名称 --&gt;</div><div class="line">		&lt;imageName&gt;$&#123;docker.repository&#125;/$&#123;project.artifactId&#125;&lt;/imageName&gt;</div><div class="line">		&lt;imageTags&gt;</div><div class="line">			&lt;imageTag&gt;latest&lt;/imageTag&gt;</div><div class="line">		&lt;/imageTags&gt;</div><div class="line">		&lt;resources&gt;</div><div class="line">			&lt;resource&gt;</div><div class="line">				&lt;targetPath&gt;/&lt;/targetPath&gt;</div><div class="line">				&lt;directory&gt;$&#123;project.build.directory&#125;&lt;/directory&gt;</div><div class="line">				&lt;include&gt;$&#123;project.build.finalName&#125;.jar&lt;/include&gt;</div><div class="line">			&lt;/resource&gt;</div><div class="line">		&lt;/resources&gt;</div><div class="line">	&lt;/configuration&gt;</div><div class="line">&lt;/plugin&gt;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>docker仓库地址可以直接写在pom文件中，但为了多环境配置可以将地址配置在maven-settings.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;profiles&gt;</div><div class="line">  &lt;profile&gt;    </div><div class="line">    &lt;id&gt;nexus&lt;/id&gt;    </div><div class="line">  &lt;properties&gt;</div><div class="line">   &lt;docker.repository&gt;10.10.16.160:8083&lt;/docker.repository&gt;</div><div class="line"> &lt;/properties&gt;</div><div class="line">&lt;/profile&gt;</div><div class="line">&lt;/profiles&gt;</div><div class="line"></div><div class="line">&lt;activeProfiles&gt;    </div><div class="line"> &lt;activeProfile&gt;nexus&lt;/activeProfile&gt;    </div><div class="line">&lt;/activeProfiles&gt;</div></pre></td></tr></table></figure>
+<h3 id="创建Dockerfile"><a href="#创建Dockerfile" class="headerlink" title="创建Dockerfile"></a>创建Dockerfile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">FROM java:8 # 基础镜像（主程序镜像）</div><div class="line">VOLUME /tmp # 挂在tmp盘</div><div class="line">ADD user-center-0.0.1-SNAPSHOT.jar workdir/app.jar</div><div class="line">WORKDIR workdir # 指定工作目录</div><div class="line">ENV JAVA_OPTS=&quot;&quot;</div><div class="line">ENTRYPOINT [ &quot;sh&quot;, &quot;-c&quot;, &quot;java -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+08 $JAVA_OPTS -jar /workdir/app.jar&quot; ] # 程序入口，支持动态传参</div></pre></td></tr></table></figure>
+<h3 id="测试手动构建镜像"><a href="#测试手动构建镜像" class="headerlink" title="测试手动构建镜像"></a>测试手动构建镜像</h3><p>在命令行进入到项目路径执行<code>mvn clean package docker:build</code>来构建镜像，执行<code>mvn clean package docker:build -DpushImage</code>构建并推送镜像docker仓库</p>
+<h2 id="Jenkins项目构建"><a href="#Jenkins项目构建" class="headerlink" title="Jenkins项目构建"></a>Jenkins项目构建</h2><p>新建一个名为user-center的maven项目</p>
+<h3 id="配置git仓库"><a href="#配置git仓库" class="headerlink" title="配置git仓库"></a>配置git仓库</h3><p><img src="http://p0kzweqn4.bkt.clouddn.com/jenkins1.png" alt="git仓库"></p>
+<h3 id="配置构建服务器"><a href="#配置构建服务器" class="headerlink" title="配置构建服务器"></a>配置构建服务器</h3><p><img src="http://p0kzweqn4.bkt.clouddn.com/jenkins2.png" alt="添加构建服务器"></p>
+<h3 id="配置构建步骤"><a href="#配置构建步骤" class="headerlink" title="配置构建步骤"></a>配置构建步骤</h3><p><img src="http://p0kzweqn4.bkt.clouddn.com/jenkins3.png" alt="构建步骤"></p>
+<h2 id="运行脚本"><a href="#运行脚本" class="headerlink" title="运行脚本"></a>运行脚本</h2><p>jenkins配置中用到的run-server脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">#私有仓库地址</div><div class="line">REPO_URL=$&#123;1&#125;</div><div class="line">#项目名称</div><div class="line">PROJ_NAME=$&#123;2&#125;</div><div class="line">#项目运行环境，多环境配置</div><div class="line">PROFILE_ACTIVE=$&#123;3&#125;</div><div class="line">#eureka注册中心地址，未接入忽略该配置</div><div class="line">EUREKA_URL=$&#123;4&#125;</div><div class="line"></div><div class="line">#停止原来的熔器</div><div class="line">docker stop $&#123;PROJ_NAME&#125;</div><div class="line">#删除原来的容器</div><div class="line">docker rm $&#123;PROJ_NAME&#125;</div><div class="line">#删除原来的镜像</div><div class="line">docker rmi $&#123;REPO_URL&#125;/$&#123;PROJ_NAME&#125;</div><div class="line">#登录docker仓库</div><div class="line">docker login --username=username --password=passwd $&#123;REPO_URL&#125;</div><div class="line">#重新拉取新镜像</div><div class="line">docker pull $&#123;REPO_URL&#125;/$&#123;PROJ_NAME&#125;</div><div class="line">#运行新的容器</div><div class="line">docker run -itd \</div><div class="line">--restart=always \</div><div class="line">--net=host \</div><div class="line">-m 2048m \</div><div class="line">--name $&#123;PROJ_NAME&#125; \</div><div class="line">-v /etc/localtime:/etc/localtime:ro \</div><div class="line">--env JAVA_OPTS=&quot;-Dspring.profiles.active=$&#123;PROFILE_ACTIVE&#125; -Deureka.client.serviceUrl.defaultZone=$&#123;EUREKA_URL&#125; -server -Xms1024m -Xmx2048m  -XX:PermSize=64M -XX:MaxNewSize=256m -XX:MaxPermSize=128m -Djava.awt.headless=true -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp&quot; \</div><div class="line">$&#123;REPO_URL&#125;/$&#123;PROJ_NAME&#125;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> SpringBoot </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> springboot </tag>
+            
+            <tag> docker </tag>
+            
+            <tag> jenkins </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[centos7安装mysql]]></title>
+      <url>https://zixianc.github.io/2017/12/04/mysql-install/</url>
+      <content type="html"><![CDATA[<h2 id="安装mysql-rpm包"><a href="#安装mysql-rpm包" class="headerlink" title="安装mysql-rpm包"></a>安装mysql-rpm包</h2><p>直接安装:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm</div></pre></td></tr></table></figure>
+<p>或者下载到本地后安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm</div><div class="line">yum localinstall mysql-community-release-el7-5.noarch.rpm</div></pre></td></tr></table></figure>
+<p>验证是否安装成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum repolist enabled | grep &quot;mysql.*-community.*&quot;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="安装mysql-server"><a href="#安装mysql-server" class="headerlink" title="安装mysql-server"></a>安装mysql-server</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum install mysql-community-server  -y</div><div class="line">rpm -qi mysql-community-server.x86_64 0:5.6.24-3.el7</div></pre></td></tr></table></figure>
+<h2 id="相关设置"><a href="#相关设置" class="headerlink" title="相关设置"></a>相关设置</h2><h3 id="修改字符集"><a href="#修改字符集" class="headerlink" title="修改字符集"></a>修改字符集</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/my.cnf</div></pre></td></tr></table></figure>
+<p>在<code>[mysqld]</code>下添加<code>character_set_server = utf8</code>，启动后<code>SHOW VARIABLES LIKE &#39;character%&#39;;</code>查看字符集信息</p>
+<h3 id="设置root密码"><a href="#设置root密码" class="headerlink" title="设置root密码"></a>设置root密码</h3><p><code>systemctl start mysqld</code>启动服务后<br><code>mysqladmin -u root password &#39;new-passwd&#39;</code></p>
+<h3 id="开启远程访问"><a href="#开启远程访问" class="headerlink" title="开启远程访问"></a>开启远程访问</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">grant all privileges on *.* to &apos;root&apos;@&apos;%&apos; identified by &apos;passwd&apos; with grant option;</div><div class="line">FLUSH PRIVILEGES;</div></pre></td></tr></table></figure>
+<p>###安全设置（可选）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql_secure_installation;</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Mysql </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> centos7 </tag>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[获取docker容器内java进程的堆栈信息]]></title>
+      <url>https://zixianc.github.io/2017/11/23/docker-java-thread-heap-dump/</url>
+      <content type="html"><![CDATA[<h2 id="进入docker容器内"><a href="#进入docker容器内" class="headerlink" title="进入docker容器内"></a>进入docker容器内</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker exec -it CONTAINER_NAME bash</div></pre></td></tr></table></figure>
+<h2 id="查看java进程"><a href="#查看java进程" class="headerlink" title="查看java进程"></a>查看java进程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jps</div></pre></td></tr></table></figure>
+<h2 id="转存进程Thread信息"><a href="#转存进程Thread信息" class="headerlink" title="转存进程Thread信息"></a>转存进程Thread信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jstack PID &gt; thread.tdump</div></pre></td></tr></table></figure>
+<h2 id="转存进程Heap信息"><a href="#转存进程Heap信息" class="headerlink" title="转存进程Heap信息"></a>转存进程Heap信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jmap -dump:live,format=b,file=heapDump.hprof PID</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="从容器中拷贝出文件"><a href="#从容器中拷贝出文件" class="headerlink" title="从容器中拷贝出文件"></a>从容器中拷贝出文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo docker cp CONTAINER_NAME:threadDump.tdump .</div><div class="line">sudo docker cp CONTAINER_NAME:heapDump.hprof .</div></pre></td></tr></table></figure>
+<h2 id="使用MAT进行内存分析"><a href="#使用MAT进行内存分析" class="headerlink" title="使用MAT进行内存分析"></a>使用MAT进行内存分析</h2><p><a href="http://www.eclipse.org/mat/downloads.php" target="_blank" rel="external">MAT下载地址</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Docker </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> docker </tag>
+            
+            <tag> java </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[centos7安装docker]]></title>
+      <url>https://zixianc.github.io/2017/11/22/docker-install/</url>
+      <content type="html"><![CDATA[<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">(aliyun镜像) curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</div><div class="line">(daocloud镜像) curl -fsSL https://get.docker.com/ | sh</div></pre></td></tr></table></figure>
+<h2 id="配置加速器"><a href="#配置加速器" class="headerlink" title="配置加速器"></a>配置加速器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mkdir -p /etc/docker</div><div class="line">tee /etc/docker/daemon.json &lt;&lt;-&apos;EOF&apos;</div><div class="line">&#123;</div><div class="line">  &quot;registry-mirrors&quot;: [&quot;aliyun加速地址&quot;]</div><div class="line">&#125;</div><div class="line">EOF</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="修改允许非安全的仓库"><a href="#修改允许非安全的仓库" class="headerlink" title="修改允许非安全的仓库"></a>修改允许非安全的仓库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /usr/lib/systemd/system/docker.service</div></pre></td></tr></table></figure>
+<p>找到ExecStart属性，在dockerd后面添加–insecure-registry 服务器IP:Docker仓库端口 ，最终为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/dockerd --insecure-registry 0.0.0.0/0</div></pre></td></tr></table></figure></p>
+<h2 id="设置开机并重启docker"><a href="#设置开机并重启docker" class="headerlink" title="设置开机并重启docker"></a>设置开机并重启docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">systemctl enable docker</div><div class="line">systemctl daemon-reload</div><div class="line">systemctl restart docker</div><div class="line">docker login --username=admin --passwrod=seentao registry-host:port</div></pre></td></tr></table></figure>
+<h2 id="安装docker-bash"><a href="#安装docker-bash" class="headerlink" title="安装docker-bash"></a>安装docker-bash</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum install wget -y</div><div class="line">wget -P ~ https://github.com/yeasy/docker_practice/raw/master/_local/.bashrc_docker</div><div class="line">echo &quot;[ -f ~/.bashrc_docker ] &amp;&amp; . ~/.bashrc_docker&quot; &gt;&gt; ~/.bashrc</div><div class="line">source ~/.bashrc</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Docker </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> docker </tag>
+            
+            <tag> centos7 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
 </search>
