@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zixianc.github.io/2018/02/11/abtesting-gateway-install/</loc>
+    
+    <lastmod>2018-02-11T04:37:09.445Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zixianc.github.io/2017/11/23/docker-java-thread-heap-dump/</loc>
+    
+    <lastmod>2018-02-11T04:35:12.088Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zixianc.github.io/2017/12/04/mysql-install/</loc>
+    
+    <lastmod>2018-02-11T04:33:30.430Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zixianc.github.io/2017/11/22/docker-install/</loc>
+    
+    <lastmod>2018-02-11T04:32:08.150Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://zixianc.github.io/2017/12/06/springboot-docker-jenkins/</loc>
     
     <lastmod>2018-02-01T02:37:54.517Z</lastmod>
@@ -23,13 +51,6 @@
   </url>
   
   <url>
-    <loc>https://zixianc.github.io/2017/12/04/mysql-install/</loc>
-    
-    <lastmod>2017-12-04T14:19:20.778Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://zixianc.github.io/categories/index.html</loc>
     
     <lastmod>2017-12-01T13:38:17.429Z</lastmod>
@@ -40,20 +61,6 @@
     <loc>https://zixianc.github.io/tags/index.html</loc>
     
     <lastmod>2017-12-01T13:37:55.723Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zixianc.github.io/2017/11/23/docker-java-thread-heap-dump/</loc>
-    
-    <lastmod>2017-12-01T12:43:07.283Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zixianc.github.io/2017/11/22/docker-install/</loc>
-    
-    <lastmod>2017-12-01T12:42:26.978Z</lastmod>
     
   </url>
   
