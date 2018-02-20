@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zixianc.github.io/2018/02/20/java-class-loader/</loc>
+    
+    <lastmod>2018-02-20T11:43:48.556Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://zixianc.github.io/2017/12/06/springboot-docker-jenkins/</loc>
     
     <lastmod>2018-02-20T11:41:54.343Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>https://zixianc.github.io/2017/11/22/docker-install/</loc>
     
     <lastmod>2018-02-20T11:41:29.344Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zixianc.github.io/2018/02/20/java-class-loader/</loc>
-    
-    <lastmod>2018-02-20T11:40:55.613Z</lastmod>
     
   </url>
   
