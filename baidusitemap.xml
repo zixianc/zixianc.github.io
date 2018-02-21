@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>https://zixianc.github.io/2018/02/11/abtesting-gateway-install/</loc>
+    <lastmod>2018-02-21T09:33:19.211Z</lastmod>
+    <data>
+        <display>
+        <title>动态策略灰度发布系统（ABTestingGateway）</title>
+        <pubTime>2018-02-11T04:11:44.000Z</pubTime>
+        
+        <tag>nginx</tag>
+         
+        <tag>动态灰度发布</tag>
+         
+         
+           
+             
+              <breadCrumb title="Nginx" url="https://zixianc.github.io/categories/Nginx/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://zixianc.github.io/2018/02/20/java-class-loader/</loc>
     <lastmod>2018-02-21T09:11:05.155Z</lastmod>
     <data>
@@ -127,28 +149,6 @@
            
              
               <breadCrumb title="Docker" url="https://zixianc.github.io/categories/Docker/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://zixianc.github.io/2018/02/11/abtesting-gateway-install/</loc>
-    <lastmod>2018-02-11T04:52:48.279Z</lastmod>
-    <data>
-        <display>
-        <title>动态策略灰度发布系统（ABTestingGateway部署和使用）</title>
-        <pubTime>2018-02-11T04:11:44.000Z</pubTime>
-        
-        <tag>nginx</tag>
-         
-        <tag>动态灰度发布</tag>
-         
-         
-           
-             
-              <breadCrumb title="Nginx" url="https://zixianc.github.io/categories/Nginx/"/>
           
         </display>
     </data>
