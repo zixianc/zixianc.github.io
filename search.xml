@@ -7,7 +7,7 @@
       <title><![CDATA[Java类加载过程]]></title>
       <url>https://zixianc.github.io/2018/02/20/java-class-loader/</url>
       <content type="html"><![CDATA[<p>Java运行的是这样的，首先Java编译器将我们的源代码编译成为字节码，然后由JVM将字节码load到内存中，接着我们的程序就可以创建对象了</p>
-<h2 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h2><p>一个java文件被加载到内存中需要经历三个阶段 <code>加载-连接（验证+准备+解析）-&gt;初始化</code><br><img src="http://p0kzweqn4.bkt.clouddn.com/javaclassload.png" style="float: left;" alt="java-classload"><br><a id="more"></a></p>
+<h2 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h2><p>一个java文件被加载到内存中需要经历三个阶段 <code>加载-连接（验证+准备+解析）-&gt;初始化</code><br><img src="http://p0kzweqn4.bkt.clouddn.com/javaclassload.png" align="left" alt="java-classload"><br><a id="more"></a></p>
 <ul>
 <li>加载<br>查找并加载类的二进制数据</li>
 <li>连接<br>验证：确保被加载的类的正确性<br>准备：为类的静态变量分配内存，并将其初始化为默认值<br>解析：把类中的符号引用转换为直接引用</li>
